@@ -27,6 +27,16 @@ void draw(){
 
 }
 
+void printBoardTest(){
+    for (int i = 0; i < a.length ; i++){
+        for (int j = 0; j < a[i].length ; j++){
+            print(str(a[i][j]) + " ");
+        }
+        println("");
+        if((i+1) % 3 == 0 ) { println(""); }
+    }
+}
+
 void drawBoard(){
     fill(0);
     for (int i = 0; i < 9 ; i++){
