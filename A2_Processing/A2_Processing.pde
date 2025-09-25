@@ -11,6 +11,7 @@ int a[][] = {
             {6,5,4,3,2,1,8,7,9},
             {9,8,7,6,5,4,2,1,3}
         };
+        
 int Board[][] = new int[9][9];
 int CellSize = 50;
 int BoardSize = 9 * CellSize;
@@ -18,7 +19,7 @@ int Blank[] = new int[4];//invisible cols
 
         
 void setup(){
-    size(450,450);
+    size(450,550);
     drawBoard();
     printBoardTest();
 }
@@ -39,7 +40,7 @@ void printBoardTest(){
 
 void drawBoard(){
     fill(0);
-    for (int i = 0; i < 9 ; i++){
+    for (int i = 0; i <= 9 ; i++){
         if ((i % 3) == 0) { strokeWeight(3); }
         else { strokeWeight(1); }
         
