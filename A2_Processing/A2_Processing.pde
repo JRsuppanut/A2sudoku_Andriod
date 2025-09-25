@@ -14,7 +14,7 @@ int a[][] = {
         
 int CellSize = 50;
 int BoardSize = 9 * CellSize;
-        
+  int Blank[] = new int[4];//invisible cols         
         
 void setup(){
     size(450,450);
@@ -33,5 +33,11 @@ void drawBoard(){
         
         line(0,CellSize*i,BoardSize,CellSize*i);
         line(CellSize * i, 0 , i * CellSize , BoardSize);
+    }
+}
+
+void Random_Blank(){
+    for (int i = 0 ; i < 7 ; i++){
+        Blank[i] = int(random(0,9));
     }
 }
