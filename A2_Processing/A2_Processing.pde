@@ -12,13 +12,26 @@ int a[][] = {
             {9,8,7,6,5,4,2,1,3}
         };
         
-        
+int CellSize = 50;
+int BoardSize = 9 * CellSize;
         
         
 void setup(){
-
+    size(450,450);
+    drawBoard();
 }
 
 void draw(){
 
+}
+
+void drawBoard(){
+    fill(0);
+    for (int i = 0; i < 9 ; i++){
+        if ((i % 3) == 0) { strokeWeight(3); }
+        else { strokeWeight(1); }
+        
+        line(0,CellSize*i,BoardSize,CellSize*i);
+        line(CellSize * i, 0 , i * CellSize , BoardSize);
+    }
 }
