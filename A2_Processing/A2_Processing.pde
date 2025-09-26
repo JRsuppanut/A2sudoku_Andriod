@@ -17,6 +17,8 @@ int CellSize = 50;
 int BoardSize = 9 * CellSize;
 int Blank[] = new int[4];//invisible cols    
 
+int rows , cols;
+
         
 void setup(){
     size(450,550);
@@ -32,7 +34,15 @@ void setup(){
 }
 
 void draw(){
+    
+}
 
+void mouseClicked(){ 
+    if(mouseY <= 450){
+        rows = mouseY / CellSize;
+        cols = mouseX / CellSize;
+    }
+    println("(" + rows + ", " + cols + ")");
 }
 
 void printBoardTest(){
