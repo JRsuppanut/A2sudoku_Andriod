@@ -23,9 +23,10 @@ void setup(){
     textAlign(CENTER, CENTER);
     textSize(20);
     
-    randomBlank();
     fillBoard();
+    removeNumber(Board);
     printBoardTest();
+    
     
     drawBoard();
 }
@@ -35,12 +36,12 @@ void draw(){
 }
 
 void printBoardTest(){
-    for (int i = 0; i < a.length ; i++){
-        for (int j = 0; j < a[i].length ; j++){
-            print(str(Board[i][j]) + " ");
+    for (int row = 0; row < a.length ; row++){
+        for (int col = 0; col < Board[row].length ; col++){
+            print(str(Board[row][col]) + " ");
         }
         println("");
-        if((i+1) % 3 == 0 ) { println(""); }
+        if((row+1) % 3 == 0 ) { println(""); }
     }
 }
 
@@ -55,20 +56,24 @@ void drawBoard(){
     }
 }
 
-void randomBlank(){
-    for (int i = 0 ; i < Blank.length ; i++){
-        Blank[i] = int(random(0,9));
+void fillBoard(){
+    for(int row = 0 ; row < 9 ; row++){
+        for(int col = 0; col < 9 ; col++){
+            Board[row][col] = a[row][col];
+        }
     }
 }
 
-void fillBoard(){
-    for(int i = 0 ; i < 9 ; i++){
-        for(int j = 0; j<9 ; j++){
-            Board[i][j] = a[i][j];
-        }
-        for(int k = 0; k < 4 ;k++){
-            int col = Blank[k];
-            Board[i][col] = 0;
+void removeNumber(int board[][]){
+    for (int row = 0 ; row < Board.length ; row++){
+        int blank = int(random(2,6)); // random count for blank in 2-5
+        
+        for(int b = 0 ; b < blank ; b++){
+            int col = int(random(9));
+            while(board[row][col] == 0){ // if random in old row
+                col = int(random(9)); // random again
+            }
+            board[row][col] = 0; 
         }
     }
 }
