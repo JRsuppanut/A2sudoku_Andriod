@@ -34,7 +34,7 @@ void setup(){
 }
 
 void draw(){
-    background(255);
+    background(250);
     
     if(rows >= 0 && cols >= 0){
         selectedCell();
@@ -114,9 +114,9 @@ void selectedCell(){
     noStroke();
     rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
     
-    //draw stroke for hightlight
-    stroke(255, 200, 0);
-    strokeWeight(2);
+    //draw stroke for grid of board
+    stroke(0);
+    strokeWeight(1);
     noFill();
     rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
 
