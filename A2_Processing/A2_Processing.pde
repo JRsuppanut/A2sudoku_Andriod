@@ -17,7 +17,7 @@ int CellSize = 50;
 int BoardSize = 9 * CellSize;
 int Blank[] = new int[4];//invisible cols    
 
-int rows , cols;
+int rows , cols = -1;
 
         
 void setup(){
@@ -35,12 +35,14 @@ void setup(){
 
 void draw(){
     background(255);
+    
+    if(rows >= 0 && cols >= 0){
+        selectedCell();
+    }
+    
     drawBoard();
     drawNumberInBoard();
     
-    if(rows > 0 && cols > 0){
-        selectedCell();
-    }
 }
 
 void mouseClicked(){ 
@@ -108,8 +110,14 @@ void removeNumber(int board[][]){
 }
 
 void selectedCell(){
-    noStroke();
     fill(255, 255, 0, 150); //yellow colour
-    
+    noStroke();
     rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
+    
+    //draw stroke for hightlight
+    stroke(255, 200, 0);
+    strokeWeight(2);
+    noFill();
+    rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
+
 }
