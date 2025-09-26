@@ -20,8 +20,14 @@ int Blank[] = new int[4];//invisible cols
         
 void setup(){
     size(450,550);
-    drawBoard();
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    
+    randomBlank();
+    fillBoard();
     printBoardTest();
+    
+    drawBoard();
 }
 
 void draw(){
@@ -31,7 +37,7 @@ void draw(){
 void printBoardTest(){
     for (int i = 0; i < a.length ; i++){
         for (int j = 0; j < a[i].length ; j++){
-            print(str(a[i][j]) + " ");
+            print(str(Board[i][j]) + " ");
         }
         println("");
         if((i+1) % 3 == 0 ) { println(""); }
@@ -50,7 +56,7 @@ void drawBoard(){
 }
 
 void randomBlank(){
-    for (int i = 0 ; i < 7 ; i++){
+    for (int i = 0 ; i < Blank.length ; i++){
         Blank[i] = int(random(0,9));
     }
 }
