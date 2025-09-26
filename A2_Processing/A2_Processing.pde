@@ -21,14 +21,14 @@ int Blank[] = new int[4];//invisible cols
 void setup(){
     size(450,550);
     textAlign(CENTER, CENTER);
-    textSize(20);
+    textSize(30);
     
     fillBoard();
     removeNumber(Board);
     printBoardTest();
     
-    
     drawBoard();
+    drawNumberInBoard();
 }
 
 void draw(){
@@ -42,6 +42,17 @@ void printBoardTest(){
         }
         println("");
         if((row+1) % 3 == 0 ) { println(""); }
+    }
+}
+
+void drawNumberInBoard(){
+    fill(0);
+    for(int row = 0 ; row < Board.length ; row++){
+        for (int col = 0 ; col < Board[row].length ; col++){
+            if (Board[row][col] != 0){
+                text(Board[row][col], col*CellSize + CellSize/2 , row*CellSize + CellSize/2);
+            }
+        }
     }
 }
 
