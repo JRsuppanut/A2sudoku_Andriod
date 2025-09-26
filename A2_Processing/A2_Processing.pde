@@ -34,7 +34,13 @@ void setup(){
 }
 
 void draw(){
+    background(255);
+    drawBoard();
+    drawNumberInBoard();
     
+    if(rows > 0 && cols > 0){
+        selectedCell();
+    }
 }
 
 void mouseClicked(){ 
@@ -99,4 +105,11 @@ void removeNumber(int board[][]){
             board[row][col] = 0; 
         }
     }
+}
+
+void selectedCell(){
+    noStroke();
+    fill(255, 255, 0, 150); //yellow colour
+    
+    rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
 }
