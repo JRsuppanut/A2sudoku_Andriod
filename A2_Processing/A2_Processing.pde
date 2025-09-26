@@ -38,7 +38,9 @@ void draw(){
 void printBoardTest(){
     for (int row = 0; row < a.length ; row++){
         for (int col = 0; col < Board[row].length ; col++){
-            print(str(Board[row][col]) + " ");
+            if((col + 1) % 3 == 0){
+                print(str(Board[row][col]) + "  ");
+            }else { print(str(Board[row][col]) + " "); }
         }
         println("");
         if((row+1) % 3 == 0 ) { println(""); }
