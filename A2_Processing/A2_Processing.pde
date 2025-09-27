@@ -60,6 +60,29 @@ void draw(){
         line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
     }
     
+    
+    checkComplete();
+    //** if game is COMPLETE **
+    if(IsComplete){
+        background(155);
+        textSize(50);
+        text("You win!" , width/2 , height/2);
+        
+        // draw restart button
+        fill(200);
+        //top line
+        line(width/2 - 80, height/2 + 40, width/2 + 80, height/2 + 40);
+        //under line
+        line(width/2 - 80, height/2 + 100, width/2 + 80, height/2 + 100);
+        //left line
+        line(width/2 - 80, height/2 + 40, width/2 - 80, height/2 + 100);
+        //rightline
+        line(width/2 + 80, height/2 + 40, width/2 + 80, height/2 + 100);
+        fill(0);
+        textSize(30);
+        text("Restart", width/2, height/2 + 65);
+        noLoop();
+    }
 }
 
 void mouseClicked(){
@@ -70,6 +93,12 @@ void mouseClicked(){
     }
     println("(" + rows + ", " + cols + ")");
     
+    //if click restart bottom
+    if(IsComplete){
+        if (mouseX >= width/2 - 80 && mouseX <= width/2 + 80 && mouseY >= height/2 + 40 && mouseY <= height/2 + 100){
+            reStart();
+        }
+    }
 }
 
 void mousePressed(){
@@ -96,14 +125,6 @@ void mouseReleased(){
         
         //reset Dragging Number
         DraggingAnswer = -1; 
-    }
-    
-    //** if game is COMPLETE **
-    if(!IsComplete){
-        background(155);
-        noLoop();
-        textSize(50);
-        text("You win!" , width/2 , height/2);
     }
 }
 
@@ -235,18 +256,22 @@ boolean isDuplicate(int ThatRow , int ThatCol , int answer){
     return false;
 }
 
-void isGameComplete(){
+void checkComplete(){
     // if not fill all and uncomplete
+    
     for (int row = 0; row < 9 ; row++){
         for (int col = 0 ; col < 9 ; col++){
-            if(Board[row][col] == 0 || isDuplicate(row , col , Board[row][col])) IsComplete = false;
+            if(Board[row][col] == 0 || isDuplicate(row , col , Board[row][col])) {
+              IsComplete = false;
+              return;
+            }
         }
     }
     //complete
     IsComplete = true;
 }
 
-void restart(){
+void reStart(){
     IsComplete = false;
     fillBoard();
     removeNumber(Board);
