@@ -49,7 +49,7 @@ void draw(){
     drawNumberInBoard();
     drawAnswer();
     
-            //draw dragging answer
+    //draw dragging answer
     if(DraggingAnswer != -1){
         text(DraggingAnswer , mouseX , mouseY);
         strokeWeight(2);
@@ -71,12 +71,13 @@ void mouseClicked(){
 }
 
 void mousePressed(){
+    //drop the answer
     if(mouseY > CellSize*10){
         int col = mouseX / CellSize;
         DraggingAnswer = col + 1;
     }
+    
 }
-
 
 void mouseReleased(){
     if(DraggingAnswer != -1){
@@ -84,8 +85,11 @@ void mouseReleased(){
         int col = mouseX / CellSize;
         
         if(row < 9 && col < 9 && !FixedNumber[row][col]){
-            fill(126); //blue
             Board[row][col] = DraggingAnswer;
+        }
+        
+        for(int i = 0 ; i < 9 ; i++){
+            
         }
         
         //reset Dragging Number
@@ -113,7 +117,13 @@ void drawNumberInBoard(){
                 if(FixedNumber[row][col]){ //if it's not player
                     fill(0);
                 }
+                else if (isDuplicate(row , col , Board[row][col])){
+                    fill(200,0,0);
+                }
                 else if (!FixedNumber[row][col]){// if it's player
+                    fill(0,200,100);
+                }
+                else{
                     fill(0,200,100);
                 }
                 text(Board[row][col], col*CellSize + CellSize/2 , row*CellSize + CellSize/2);
@@ -192,4 +202,17 @@ void selectedCell(){
     strokeWeight(1);
     noFill();
     rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
+}
+
+boolean isDuplicate(int ThatRow , int ThatCol , int answer){
+    int amount = 0;
+    //check in colum
+    for(int i = 0 ; i < 9 ; i++){
+        if(Board[i][ThatCol] == answer ) amount++;
+    }
+    //check in row
+    for(int j = 0 ; j < 9 ; j++){
+        if(Board[ThatRow][j] == answer) amount++;
+    }
+    return amount > 1;
 }
