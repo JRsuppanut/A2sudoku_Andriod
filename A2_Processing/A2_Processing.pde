@@ -49,7 +49,7 @@ void draw(){
     drawNumberInBoard();
     drawAnswer();
     
-    //draw dragging answer
+            //draw dragging answer
     if(DraggingAnswer != -1){
         text(DraggingAnswer , mouseX , mouseY);
         strokeWeight(2);
@@ -70,12 +70,13 @@ void mouseClicked(){
     
 }
 
-void mouseDragged(){
+void mousePressed(){
     if(mouseY > CellSize*10){
         int col = mouseX / CellSize;
         DraggingAnswer = col + 1;
     }
 }
+
 
 void mouseReleased(){
     if(DraggingAnswer != -1){
@@ -191,5 +192,4 @@ void selectedCell(){
     strokeWeight(1);
     noFill();
     rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
-
 }
