@@ -17,7 +17,8 @@ int CellSize = 50;
 int BoardSize = 9 * CellSize;
 int Blank[] = new int[4];//invisible cols    
 
-int rows , cols = -1;
+int rows , cols = -1; // currennt cell selected
+int DraggingAnswer = -1; // -1 for nothing
 
         
 void setup(){
@@ -44,14 +45,47 @@ void draw(){
     drawBoard();
     drawNumberInBoard();
     drawAnswer();
+    
+    //draw dragging answer
+    if(DraggingAnswer != -1){
+        text(DraggingAnswer , mouseX , mouseY);
+        strokeWeight(2);
+        line(mouseX -25 , mouseY-25 , mouseX+25 , mouseY-25);
+        line(mouseX -25 , mouseY+25 , mouseX+25 , mouseY+25);
+        line(mouseX -25 , mouseY-25 , mouseX-25 , mouseY+25);
+        line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
+    }
 }
 
-void mouseClicked(){ 
+void mouseClicked(){
+    //check current cell
     if(mouseY <= 450){
         rows = mouseY / CellSize;
         cols = mouseX / CellSize;
     }
     println("(" + rows + ", " + cols + ")");
+    
+}
+
+void mouseDragged(){
+    if(mouseY > CellSize*10){
+        int col = mouseX / CellSize;
+        DraggingAnswer = col + 1;
+    }
+}
+
+void mouseReleased(){
+    if(DraggingAnswer != -1){
+        int row = mouseY / CellSize;
+        int col = mouseX / CellSize;
+        
+        if(row < 9 && col < 9 && Board[row][col] == 0){
+            Board[row][col] = DraggingAnswer;
+        }
+        
+        //reset Dragging Number
+        DraggingAnswer = -1; 
+    }
 }
 
 void printBoardTest(){
