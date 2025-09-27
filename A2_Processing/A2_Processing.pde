@@ -31,6 +31,7 @@ void setup(){
     
     drawBoard();
     drawNumberInBoard();
+    drawAnswer();
 }
 
 void draw(){
@@ -42,7 +43,7 @@ void draw(){
     
     drawBoard();
     drawNumberInBoard();
-    
+    drawAnswer();
 }
 
 void mouseClicked(){ 
@@ -84,6 +85,25 @@ void drawBoard(){
         
         line(0,CellSize*i,BoardSize,CellSize*i);
         line(CellSize * i, 0 , i * CellSize , BoardSize);
+    }
+}
+
+void drawAnswer(){
+    fill(0);
+    
+    strokeWeight(3);
+    //draw line for answer cell
+    line(0 , CellSize * 10,width , CellSize * 10);
+    line(0 , CellSize * 11,width , CellSize * 11);
+    for(int i = 0 ; i < 9 ; i++){
+        line(CellSize * i ,CellSize * 10 ,CellSize * i ,CellSize * 11 );
+    }
+    
+    //draw number to answer in cell
+    for (int col = 0 ; col < 9 ;col++){
+        textAlign(CENTER, CENTER);
+        textSize(30);
+        text(col , col*CellSize + CellSize/2 , CellSize * 10.5);
     }
 }
 
