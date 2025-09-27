@@ -103,7 +103,7 @@ void drawAnswer(){
     for (int col = 0 ; col < 9 ;col++){
         textAlign(CENTER, CENTER);
         textSize(30);
-        text(col , col*CellSize + CellSize/2 , CellSize * 10.5);
+        text(col+1 , col*CellSize + CellSize/2 , CellSize * 10.5);
     }
 }
 
