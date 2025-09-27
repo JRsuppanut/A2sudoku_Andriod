@@ -205,14 +205,13 @@ void selectedCell(){
 }
 
 boolean isDuplicate(int ThatRow , int ThatCol , int answer){
-    int amount = 0;
-    //check in colum
+    //check in colum BUT not itself
     for(int i = 0 ; i < 9 ; i++){
-        if(Board[i][ThatCol] == answer ) amount++;
+        if( (i != ThatRow) && (Board[i][ThatCol] == answer) ) return true;
     }
-    //check in row
+    //check in row BUT not itself
     for(int j = 0 ; j < 9 ; j++){
-        if(Board[ThatRow][j] == answer) amount++;
+        if( (j != ThatCol) && (Board[ThatRow][j] == answer) ) return true;
     }
-    return amount > 1;
+    return false;
 }
