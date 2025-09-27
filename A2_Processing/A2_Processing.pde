@@ -95,6 +95,14 @@ void mouseReleased(){
         //reset Dragging Number
         DraggingAnswer = -1; 
     }
+    
+    //** if game is COMPLETE **
+    if(isComplete()){
+        background(155);
+        noLoop();
+        textSize(50);
+        text("You win!" , width/2 , height/2);
+    }
 }
 
 void printBoardTest(){
@@ -223,4 +231,16 @@ boolean isDuplicate(int ThatRow , int ThatCol , int answer){
         }
     }
     return false;
+}
+
+
+boolean isComplete(){
+    // if not fill all and uncomplete
+    for (int row = 0; row < 9 ; row++){
+        for (int col = 0 ; col < 9 ; col++){
+            if(Board[row][col] == 0 || isDuplicate(row , col , Board[row][col])) return false;
+        }
+    }
+    //complete
+    return true;
 }
