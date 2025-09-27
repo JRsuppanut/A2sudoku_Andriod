@@ -15,8 +15,8 @@ int a[][] = {
 int Board[][] = new int[9][9];
 boolean FixedNumber[][] = new boolean[9][9]; // stack number is not to play
 
-int CellSize;
-int BoardSize;
+int CellSize = 50;
+int BoardSize = 9 * CellSize;
 int Blank[] = new int[4];//invisible cols    
 
 int rows , cols = -1; // currennt cell selected
@@ -25,21 +25,26 @@ int DraggingAnswer = -1; // -1 for nothing
 boolean IsComplete = false;
         
 void setup(){
-    size(450, 550);
+    size(450,550);
     textAlign(CENTER, CENTER);
     textSize(30);
-    
-    CellSize = width / 9;
-    BoardSize = CellSize * 9;
     
     fillBoard();
     removeNumber(Board);
     printBoardTest();
     
+    drawBoard();
+    drawNumberInBoard();
+    drawAnswer();
 }
 
 void draw(){
     background(250);
+    
+    //not used for andriod
+    //if(rows >= 0 && cols >= 0){
+    //    selectedCell();
+    //}
     
     drawBoard();
     drawNumberInBoard();
@@ -110,10 +115,15 @@ void mouseReleased(){
         int row = mouseY / CellSize;
         int col = mouseX / CellSize;
         
-        if(row >= 0 && row < 9 && col >= 0 && col < 9 && !FixedNumber[row][col]){
+        if(row < 9 && col < 9 && !FixedNumber[row][col]){
             Board[row][col] = DraggingAnswer;
         }
         
+        for(int i = 0 ; i < 9 ; i++){
+            
+        }
+        
+        //reset Dragging Number
         DraggingAnswer = -1; 
     }
 }
@@ -211,6 +221,18 @@ void removeNumber(int board[][]){
             }
         }
     }
+}
+
+void selectedCell(){
+    fill(255, 255, 0, 150); //yellow colour
+    noStroke();
+    rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
+    
+    //draw stroke for grid of board
+    stroke(0);
+    strokeWeight(1);
+    noFill();
+    rect(cols * CellSize, rows * CellSize, CellSize, CellSize);
 }
 
 boolean isDuplicate(int ThatRow , int ThatCol , int answer){
