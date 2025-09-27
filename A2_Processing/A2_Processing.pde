@@ -22,6 +22,7 @@ int Blank[] = new int[4];//invisible cols
 int rows , cols = -1; // currennt cell selected
 int DraggingAnswer = -1; // -1 for nothing
 
+boolean IsComplete = false;
         
 void setup(){
     size(450,550);
@@ -58,6 +59,7 @@ void draw(){
         line(mouseX -25 , mouseY-25 , mouseX-25 , mouseY+25);
         line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
     }
+    
 }
 
 void mouseClicked(){
@@ -97,7 +99,7 @@ void mouseReleased(){
     }
     
     //** if game is COMPLETE **
-    if(isComplete()){
+    if(!IsComplete){
         background(155);
         noLoop();
         textSize(50);
@@ -233,14 +235,22 @@ boolean isDuplicate(int ThatRow , int ThatCol , int answer){
     return false;
 }
 
-
-boolean isComplete(){
+void isGameComplete(){
     // if not fill all and uncomplete
     for (int row = 0; row < 9 ; row++){
         for (int col = 0 ; col < 9 ; col++){
-            if(Board[row][col] == 0 || isDuplicate(row , col , Board[row][col])) return false;
+            if(Board[row][col] == 0 || isDuplicate(row , col , Board[row][col])) IsComplete = false;
         }
     }
     //complete
-    return true;
+    IsComplete = true;
+}
+
+void restart(){
+    IsComplete = false;
+    fillBoard();
+    removeNumber(Board);
+    rows = -1;
+    cols = -1;
+    loop();
 }
