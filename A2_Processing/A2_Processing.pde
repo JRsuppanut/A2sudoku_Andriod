@@ -13,6 +13,8 @@ int a[][] = {
         };
         
 int Board[][] = new int[9][9];
+boolean FixedNumber[][] = new boolean[9][9]; // stack number is not to play
+
 int CellSize = 50;
 int BoardSize = 9 * CellSize;
 int Blank[] = new int[4];//invisible cols    
@@ -80,6 +82,7 @@ void mouseReleased(){
         int col = mouseX / CellSize;
         
         if(row < 9 && col < 9 && Board[row][col] == 0){
+            fill(126); //blue
             Board[row][col] = DraggingAnswer;
         }
         
@@ -105,6 +108,12 @@ void drawNumberInBoard(){
     for(int row = 0 ; row < Board.length ; row++){
         for (int col = 0 ; col < Board[row].length ; col++){
             if (Board[row][col] != 0){
+                if(FixedNumber[row][col]){ //if it's not player
+                    fill(0);
+                }else{// if it's player
+                    fill(0,200,100);
+                }
+              
                 text(Board[row][col], col*CellSize + CellSize/2 , row*CellSize + CellSize/2);
             }
         }
@@ -153,12 +162,20 @@ void removeNumber(int board[][]){
     for (int row = 0 ; row < Board.length ; row++){
         int blank = int(random(2,6)); // random count for blank in 2-5
         
+        //player need to fix
         for(int b = 0 ; b < blank ; b++){
             int col = int(random(9));
             while(board[row][col] == 0){ // if random in old row
                 col = int(random(9)); // random again
             }
             board[row][col] = 0; 
+            FixedNumber[row][col] = false;
+        }
+        //player dont need to fix
+        for(int col = 0 ; col < 9 ;col++){
+            if(board[row][col] != 0){
+                FixedNumber[row][col] = true;
+            }
         }
     }
 }
