@@ -40,9 +40,10 @@ void setup(){
 void draw(){
     background(250);
     
-    if(rows >= 0 && cols >= 0){
-        selectedCell();
-    }
+    //not used for andriod
+    //if(rows >= 0 && cols >= 0){
+    //    selectedCell();
+    //}
     
     drawBoard();
     drawNumberInBoard();
@@ -81,7 +82,7 @@ void mouseReleased(){
         int row = mouseY / CellSize;
         int col = mouseX / CellSize;
         
-        if(row < 9 && col < 9 && Board[row][col] == 0){
+        if(row < 9 && col < 9 && !FixedNumber[row][col]){
             fill(126); //blue
             Board[row][col] = DraggingAnswer;
         }
@@ -110,10 +111,10 @@ void drawNumberInBoard(){
             if (Board[row][col] != 0){
                 if(FixedNumber[row][col]){ //if it's not player
                     fill(0);
-                }else{// if it's player
+                }
+                else if (!FixedNumber[row][col]){// if it's player
                     fill(0,200,100);
                 }
-              
                 text(Board[row][col], col*CellSize + CellSize/2 , row*CellSize + CellSize/2);
             }
         }
