@@ -205,13 +205,22 @@ void selectedCell(){
 }
 
 boolean isDuplicate(int ThatRow , int ThatCol , int answer){
+    //check in row BUT not itself
+    for(int j = 0 ; j < 9 ; j++){
+        if( (j != ThatCol) && (Board[ThatRow][j] == answer) ) return true;
+    }
     //check in colum BUT not itself
     for(int i = 0 ; i < 9 ; i++){
         if( (i != ThatRow) && (Board[i][ThatCol] == answer) ) return true;
     }
-    //check in row BUT not itself
-    for(int j = 0 ; j < 9 ; j++){
-        if( (j != ThatCol) && (Board[ThatRow][j] == answer) ) return true;
+    //check in 3*3
+    int StartRow = (ThatRow / 3) * 3;
+    int StartCol = (ThatCol / 3) * 3;
+    //check in colum BUT not itself
+    for(int i = StartRow ; i < StartRow+3 ; i++){
+        for(int j = StartCol; j < StartCol +3; j++){
+            if( (i != ThatRow || j != ThatCol) && (Board[i][j] == answer) ) return true;
+        }
     }
     return false;
 }
