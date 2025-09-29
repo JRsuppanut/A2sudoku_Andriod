@@ -61,6 +61,16 @@ void draw(){
         line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
     }
     
+}
+
+void mouseClicked(){
+    //check current cell
+    if(mouseY <= 450){
+        rows = mouseY / CellSize;
+        cols = mouseX / CellSize;
+    }
+    println("(" + rows + ", " + cols + ")");
+    
     
     checkComplete();
     //** if game is COMPLETE **
@@ -84,16 +94,6 @@ void draw(){
         text("Restart", width/2, height/2 + 65);
         noLoop();
     }
-}
-
-void mouseClicked(){
-    //check current cell
-    if(mouseY <= 450){
-        rows = mouseY / CellSize;
-        cols = mouseX / CellSize;
-    }
-    println("(" + rows + ", " + cols + ")");
-    
     //if click restart bottom
     if(IsComplete){
         if (mouseX >= width/2 - 80 && mouseX <= width/2 + 80 && mouseY >= height/2 + 40 && mouseY <= height/2 + 100){
@@ -123,7 +123,6 @@ void mouseReleased(){
         for(int i = 0 ; i < 9 ; i++){
             
         }
-        
         //reset Dragging Number
         DraggingAnswer = -1; 
     }
@@ -280,8 +279,6 @@ void highlightSelectedCell() {
         }
     }
 }
-
-
 void checkComplete(){
     // if not fill all and uncomplete
     
