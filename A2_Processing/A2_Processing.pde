@@ -22,6 +22,7 @@ int Blank[] = new int[4];//invisible cols
 int rows , cols = -1; // currennt cell selected
 int DraggingAnswer = -1; // -1 for nothing
 
+int chance = 3;
 boolean IsComplete = false;
         
 void setup(){
@@ -61,6 +62,17 @@ void draw(){
         line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
     }
     
+    //Chance system
+    text("Chance : " + chance, CellSize * 1.5, CellSize * 9.5);
+    
+    // Game Over
+    if(chance <= 0){
+        background(200, 0, 0);
+        fill(255);
+        textSize(50);
+        text("Game Over", width/2, height/2);
+        noLoop();
+    }
     
     checkComplete();
     //** if game is COMPLETE **
@@ -118,6 +130,9 @@ void mouseReleased(){
         
         if(row < 9 && col < 9 && !FixedNumber[row][col]){
             Board[row][col] = DraggingAnswer;
+            if(DraggingAnswer != a[row][col]){
+                chance--;
+            }
         }
         
         for(int i = 0 ; i < 9 ; i++){
@@ -301,6 +316,7 @@ void reStart(){
     IsComplete = false;
     fillBoard();
     removeNumber(Board);
+    chance = 3  ;
     rows = -1;
     cols = -1;
     loop();
