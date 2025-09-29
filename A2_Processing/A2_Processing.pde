@@ -72,6 +72,21 @@ void draw(){
         textSize(50);
         text("Game Over", width/2, height/2);
         noLoop();
+        
+        // draw restart button
+        fill(200);
+        //top line
+        line(width/2 - 80, height/2 + 40, width/2 + 80, height/2 + 40);
+        //under line
+        line(width/2 - 80, height/2 + 100, width/2 + 80, height/2 + 100);
+        //left line
+        line(width/2 - 80, height/2 + 40, width/2 - 80, height/2 + 100);
+        //rightline
+        line(width/2 + 80, height/2 + 40, width/2 + 80, height/2 + 100);
+        fill(0);
+        textSize(30);
+        text("Restart", width/2, height/2 + 65);
+        noLoop();
     }
     
     checkComplete();
