@@ -47,6 +47,7 @@ void draw(){
     //}
     
     drawBoard();
+    highlightSelectedCell();
     drawNumberInBoard();
     drawAnswer();
     
@@ -255,6 +256,31 @@ boolean isDuplicate(int ThatRow , int ThatCol , int answer){
     }
     return false;
 }
+
+void highlightSelectedCell() {
+    if (rows != -1 && cols != -1) {
+        int row = rows;
+        int col = cols;
+
+        // Yellow Hightlight
+        fill(255, 255, 0, 120);
+        rect(col * CellSize, row * CellSize, CellSize, CellSize);
+
+        // more yellow hightlight
+        int currentVal = Board[row][col];
+        if (currentVal != 0) {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if ((i != row || j != col) && Board[i][j] == currentVal) {
+                        fill(255, 255, 0, 40);
+                        rect(j * CellSize, i * CellSize, CellSize, CellSize);
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 void checkComplete(){
     // if not fill all and uncomplete
