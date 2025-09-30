@@ -67,10 +67,10 @@ void draw(){
     
     // Game Over
     if(chance <= 0){
-        background(200, 0, 0);
-        fill(255);
-        textSize(50);
-        text("Game Over", width/2, height/2);
+        background(250);
+        fill(200,0,0);
+        textSize(24);
+        text("GAME OVER!", width/2 , height/2 -20);
         noLoop();
         
         // draw restart button
