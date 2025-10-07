@@ -41,12 +41,6 @@ void setup(){
 
 void draw(){
     background(250);
-    
-    //not used for andriod
-    //if(rows >= 0 && cols >= 0){
-    //    selectedCell();
-    //}
-    
     drawBoard();
     highlightSelectedCell();
     drawNumberInBoard();
