@@ -24,6 +24,8 @@ int DraggingAnswer = -1; // -1 for nothing
 
 int chance = 3;
 boolean IsComplete = false;
+
+String file_name = "sudoku_save_game.txt";
         
 void setup(){
     size(450,550);
@@ -329,4 +331,15 @@ void reStart(){
     rows = -1;
     cols = -1;
     loop();
+}
+
+void saveGame(){
+    PrintWriter file = createWriter(file_name);
+    for(int row = 0 ; row < Board.length ; row++){
+        for(int num = 0 ; num < row ; num++){
+            file.write(str(num) + "");
+        }
+        file.print("\n");
+    file.close();
+    }
 }
