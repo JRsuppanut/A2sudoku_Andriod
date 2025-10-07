@@ -109,14 +109,7 @@ void draw(){
     }
 }
 
-void mouseClicked(){
-    //check current cell
-    if(mouseY <= 450){
-        rows = mouseY / CellSize;
-        cols = mouseX / CellSize;
-    }
-    println("(" + rows + ", " + cols + ")");
-    
+void mouseClicked(){    
     //if click restart bottom
     if(IsComplete){
         if (mouseX >= width/2 - 80 && mouseX <= width/2 + 80 && mouseY >= height/2 + 40 && mouseY <= height/2 + 100){
@@ -126,7 +119,7 @@ void mouseClicked(){
 }
 
 void mousePressed(){
-    //drop the answer
+    //pick the answer
     if(mouseY > CellSize*10){
         int col = mouseX / CellSize;
         DraggingAnswer = col + 1;
@@ -141,13 +134,6 @@ void mouseReleased(){
         
         if(row < 9 && col < 9 && !FixedNumber[row][col]){
             Board[row][col] = DraggingAnswer;
-            if(DraggingAnswer != a[row][col]){
-                chance--;
-            }
-        }
-        
-        for(int i = 0 ; i < 9 ; i++){
-            
         }
         
         //reset Dragging Number
@@ -308,19 +294,18 @@ void highlightSelectedCell() {
 }
 
 
-void checkComplete(){
+Boolean checkComplete(){
     // if not fill all and uncomplete
     
     for (int row = 0; row < 9 ; row++){
         for (int col = 0 ; col < 9 ; col++){
             if(Board[row][col] == 0 || isDuplicate(row , col , Board[row][col])) {
-              IsComplete = false;
-              return;
+              return false;
             }
         }
     }
     //complete
-    IsComplete = true;
+    return true;
 }
 
 void reStart(){
@@ -342,4 +327,8 @@ void saveGame(){
         file.print("\n");
     file.close();
     }
+}
+
+void loadGame(){
+
 }
