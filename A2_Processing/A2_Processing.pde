@@ -169,13 +169,12 @@ void mouseReleased(){
         if(row < 9 && col < 9 && !FixedNumber[row][col]){
             Board[row][col] = DraggingAnswer;
         }
+        //wrong move baby
+        if (isDuplicate(row, col, Board[row][col])) {
+            chance--;
+        }
         //reset Dragging Number
         DraggingAnswer = -1; 
-    }
-    
-    //wrong move baby
-    if (isDuplicate(row, col, Board[row][col])) {
-        chance--;
     }
     
     //load and save and reset button
