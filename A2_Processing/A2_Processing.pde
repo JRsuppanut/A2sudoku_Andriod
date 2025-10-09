@@ -330,5 +330,14 @@ void saveGame(){
 }
 
 void loadGame(){
+    String lines[] = loadStrings(file_name);
+    Board = new int[lines.length][];
 
+    
+    for(int row = 0 ; row < lines.length ; row++){
+        String num[] = split(lines[row] ,' ');
+        for(int col = 0 ; col < num.length ; col++){
+            Board[row][col] = int(num[col]);
+        }
+    }
 }
