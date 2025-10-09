@@ -48,6 +48,34 @@ void draw(){
     drawNumberInBoard();
     drawAnswer();
     
+    // chance text
+    fill(0);
+    textSize(24);
+    text("Chance : " + chance, CellSize * 1.5, CellSize * 9.5);
+    
+    //save button
+    fill(250);
+    stroke(0);
+    rect(CellSize * 5, CellSize * 9, CellSize * 2, CellSize);
+    fill(0, 150, 0);
+    text("Save", CellSize * 6, CellSize * 9.5);
+    
+    //load button
+    fill(250);
+    stroke(0);
+    rect(CellSize * 3, CellSize * 9, CellSize * 2, CellSize);
+    fill(0, 0, 200); // Set text color to blue
+    text("Load", CellSize * 4, CellSize * 9.5);
+  
+    //Restart button
+    fill(250);
+    stroke(0);
+    rect(CellSize * 7, CellSize * 9, CellSize * 2, CellSize);
+    fill(200, 0, 0);
+    text("Restart", CellSize * 8, CellSize * 9.5);
+
+  // =======================================================
+    
     //draw dragging answer
     if(DraggingAnswer != -1){
         text(DraggingAnswer , mouseX , mouseY);
@@ -61,13 +89,19 @@ void draw(){
     //Chance system
     text("Chance : " + chance, CellSize * 1.5, CellSize * 9.5);
     
-    // Game Over
-    if(chance <= 0){
-        background(250);
-        fill(200,0,0);
-        textSize(24);
-        text("GAME OVER!", width/2 , height/2 -20);
-        noLoop();
+    
+    
+    checkComplete();
+    //** if game is COMPLETE **
+    if (!IsComplete){
+        if (checkComplete()){
+            IsComplete = true;
+        }
+    }
+    if(IsComplete){
+        background(155);
+        textSize(50);
+        text("You win!" , width/2 , height/2);
         
         // draw restart button
         fill(200);
@@ -85,12 +119,13 @@ void draw(){
         noLoop();
     }
     
-    checkComplete();
-    //** if game is COMPLETE **
-    if(IsComplete){
-        background(155);
-        textSize(50);
-        text("You win!" , width/2 , height/2);
+    // Game Over
+    if(chance <= 0){
+        background(250);
+        fill(200,0,0);
+        textSize(24);
+        text("GAME OVER!", width/2 , height/2 -20);
+        noLoop();
         
         // draw restart button
         fill(200);
@@ -116,6 +151,7 @@ void mouseClicked(){
             reStart();
         }
     }
+    
 }
 
 void mousePressed(){
@@ -128,17 +164,26 @@ void mousePressed(){
 }
 
 void mouseReleased(){
+    int row = mouseY / CellSize;
+    int col = mouseX / CellSize;
     if(DraggingAnswer != -1){
-        int row = mouseY / CellSize;
-        int col = mouseX / CellSize;
-        
         if(row < 9 && col < 9 && !FixedNumber[row][col]){
             Board[row][col] = DraggingAnswer;
         }
-        
         //reset Dragging Number
         DraggingAnswer = -1; 
     }
+    
+    //load and save and reset button
+    if (row == 9) { // Check if the click is in the button area
+        if (col >= 3 && col < 5) { // Load button area
+            loadGame();
+        } else if (col >= 5 && col < 7) { // Save button area
+            saveGame();
+        } else if (col >= 7 && col < 9) { // Restart button area
+            reStart();
+        }
+    }  
 }
 
 void printBoardTest(){
@@ -321,12 +366,14 @@ void reStart(){
 void saveGame(){
     PrintWriter file = createWriter(file_name);
     for(int row = 0 ; row < Board.length ; row++){
-        for(int num = 0 ; num < row ; num++){
-            file.write(str(num) + "");
+        for(int col = 0; col < Board[row].length; col++){
+            file.print(Board[row][col] + " ");
         }
         file.print("\n");
-    file.close();
     }
+    file.flush();
+    file.close();
+    print("Done saving");
 }
 
 void loadGame(){
