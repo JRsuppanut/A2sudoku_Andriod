@@ -123,6 +123,7 @@ void draw(){
         fill(200,0,0);
         textSize(24);
         text("GAME OVER!", width/2 , height/2 -20);
+        IsComplete = true;
         noLoop();
         
         // draw restart button
@@ -170,6 +171,11 @@ void mouseReleased(){
         }
         //reset Dragging Number
         DraggingAnswer = -1; 
+    }
+    
+    //wrong move baby
+    if (isDuplicate(row, col, Board[row][col])) {
+        chance--;
     }
     
     //load and save and reset button
