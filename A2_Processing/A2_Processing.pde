@@ -154,6 +154,12 @@ void mouseClicked(){
 }
 
 void mousePressed(){
+   //show hightlight
+    if (mouseY < CellSize * 9) {
+          rows = mouseY / CellSize;
+          cols = mouseX / CellSize;
+    }
+    
     //pick the answer
     if(mouseY > CellSize*10){
         int col = mouseX / CellSize;
@@ -165,14 +171,17 @@ void mousePressed(){
 void mouseReleased(){
     int row = mouseY / CellSize;
     int col = mouseX / CellSize;
+    
     if(DraggingAnswer != -1){
         if(row < 9 && col < 9 && !FixedNumber[row][col]){
             Board[row][col] = DraggingAnswer;
-        }
-        //wrong move baby
-        if (isDuplicate(row, col, Board[row][col])) {
+            //wrong move baby
+            if (isDuplicate(row, col, Board[row][col])) {
             chance--;
+            }
         }
+
+        
         //reset Dragging Number
         DraggingAnswer = -1; 
     }
