@@ -48,9 +48,22 @@ void draw(){
     drawNumberInBoard();
     drawAnswer();
     
-    // chance text
-    fill(0);
-    textSize(24);
+    /////////////////////////////////////////////////////////////
+    
+    //draw dragging answer
+    if(DraggingAnswer != -1){
+        text(DraggingAnswer , mouseX , mouseY);
+        strokeWeight(2);
+        line(mouseX -25 , mouseY-25 , mouseX+25 , mouseY-25);
+        line(mouseX -25 , mouseY+25 , mouseX+25 , mouseY+25);
+        line(mouseX -25 , mouseY-25 , mouseX-25 , mouseY+25);
+        line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
+    }
+    
+    
+    /////////////////////////////////////////////////////////////
+    
+    //Chance text
     text("Chance : " + chance, CellSize * 1.5, CellSize * 9.5);
     
     //save button
@@ -74,22 +87,7 @@ void draw(){
     fill(200, 0, 0);
     text("Restart", CellSize * 8, CellSize * 9.5);
 
-  // =======================================================
-    
-    //draw dragging answer
-    if(DraggingAnswer != -1){
-        text(DraggingAnswer , mouseX , mouseY);
-        strokeWeight(2);
-        line(mouseX -25 , mouseY-25 , mouseX+25 , mouseY-25);
-        line(mouseX -25 , mouseY+25 , mouseX+25 , mouseY+25);
-        line(mouseX -25 , mouseY-25 , mouseX-25 , mouseY+25);
-        line(mouseX +25 , mouseY-25 , mouseX+25 , mouseY+25);
-    }
-    
-    //Chance system
-    text("Chance : " + chance, CellSize * 1.5, CellSize * 9.5);
-    
-    
+    //////////////////////////////////////////////////////////////////
     
     checkComplete();
     //** if game is COMPLETE **
@@ -97,7 +95,7 @@ void draw(){
         if (checkComplete()){
             IsComplete = true;
         }
-    }
+}
     if(IsComplete){
         background(155);
         textSize(50);
