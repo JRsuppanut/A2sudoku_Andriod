@@ -367,31 +367,27 @@ void reStart(){
 }
 
 void saveGame(){
-    String[] lines = new String[9];
-    for(int row = 0 ; row < 9 ; row++){
-        String s = "";
-        for(int col = 0 ; col < 9 ; col++){
-            s += Board[row][col] + "," + FixedNumber[row][col] + " ";
+    PrintWriter file = createWriter(file_name);
+    for(int row = 0 ; row < Board.length ; row++){
+        for(int col = 0; col < Board[row].length; col++){
+            file.print(Board[row][col] + " ");
         }
-        lines[row] = trim(s);
+        file.print("\n");
     }
-    saveStrings(file_name, lines);
-    println("Done saving");
+    file.flush();
+    file.close();
+    print("Done saving");
 }
 
 void loadGame(){
-    try{
-        String[] lines = loadStrings(file_name);
-        for(int row = 0; row < 9; row++){
-            String[] cells = split(lines[row], ' ');
-            for(int col = 0; col < 9; col++){
-                String[] parts = split(cells[col], ',');
-                Board[row][col] = int(parts[0]);
-                FixedNumber[row][col] = boolean(parts[1]);
-            }
+    String lines[] = loadStrings(file_name);
+    Board = new int[lines.length][];
+
+    
+    for(int row = 0 ; row < lines.length ; row++){
+        String num[] = split(lines[row] ,' ');
+        for(int col = 0 ; col < num.length ; col++){
+            Board[row][col] = int(num[col]);
         }
-        println("Done loading");
-    } catch(Exception e){
-        println("Error loading game: " + e.getMessage());
     }
 }
