@@ -391,7 +391,8 @@ void loadGame(){
             }
         }
         println("Game Loaded!");
-    } catch(Exception e){
+    }catch(Exception e){
         println("Error loading game: " + e.getMessage());
     }
+    chance = 3;
 }
